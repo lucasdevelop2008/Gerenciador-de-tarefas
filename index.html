@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskMaster Pro - Gestão Inteligente</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Container de Autenticação -->
+    <div id="auth-screen" class="auth-container">
+        <!-- Card de Login -->
+        <div id="login-card" class="auth-card">
+            <div class="auth-header">
+                <i class="fas fa-tasks logo-icon"></i>
+                <h1>Bem-vindo de volta</h1>
+                <p>Acesse sua conta para continuar</p>
+            </div>
+            <form id="login-form">
+                <div class="input-group">
+                    <label><i class="fas fa-envelope"></i> E-mail</label>
+                    <input type="email" id="login-email" required placeholder="seu@email.com">
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-lock"></i> Senha</label>
+                    <input type="password" id="login-password" required placeholder="Sua senha">
+                </div>
+                <div id="login-error" class="error-message hidden"></div>
+                <button type="submit" class="btn-primary">Entrar</button>
+            </form>
+            <p class="auth-footer">Não tem uma conta? <a href="#" id="go-to-signup">Criar conta</a></p>
+        </div>
+
+        <!-- Card de Cadastro -->
+        <div id="signup-card" class="auth-card hidden">
+            <div class="auth-header">
+                <i class="fas fa-user-plus logo-icon"></i>
+                <h1>Criar Conta</h1>
+                <p>Comece a organizar suas tarefas hoje</p>
+            </div>
+            <form id="signup-form">
+                <div class="input-group">
+                    <label><i class="fas fa-user"></i> Nome Completo</label>
+                    <input type="text" id="signup-name" required placeholder="Seu nome">
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-envelope"></i> E-mail</label>
+                    <input type="email" id="signup-email" required placeholder="seu@email.com">
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-lock"></i> Senha</label>
+                    <input type="password" id="signup-password" required placeholder="Mínimo 6 caracteres">
+                </div>
+                <div class="input-group">
+                    <label><i class="fas fa-check-double"></i> Confirmar Senha</label>
+                    <input type="password" id="signup-confirm" required placeholder="Repita sua senha">
+                </div>
+                <div id="signup-error" class="error-message hidden"></div>
+                <button type="submit" class="btn-primary">Cadastrar</button>
+            </form>
+            <p class="auth-footer">Já tem uma conta? <a href="#" id="go-to-login">Fazer Login</a></p>
+        </div>
+    </div>
+
+    <!-- App Principal -->
+    <div id="app-container" class="hidden">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-tasks"></i>
+                <span>TaskMaster</span>
+            </div>
+            <nav>
+                <button class="nav-item active" data-view="dashboard">
+                    <i class="fas fa-chart-line"></i> Dashboard
+                </button>
+                <button class="nav-item" data-view="tasks">
+                    <i class="fas fa-list-ul"></i> Minhas Tarefas
+                </button>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="avatar" id="user-avatar">U</div>
+                    <div class="user-details">
+                        <span id="user-name-display">Usuário</span>
+                        <small id="user-email-display">email@exemplo.com</small>
+                    </div>
+                </div>
+                <button id="logout-btn" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <!-- View: Dashboard -->
+            <section id="view-dashboard" class="view">
+                <header class="view-header">
+                    <h1>Dashboard</h1>
+                    <p id="current-date"></p>
+                </header>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon blue"><i class="fas fa-clipboard-list"></i></div>
+                        <div class="stat-info"><h3 id="stat-total">0</h3><p>Total</p></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon yellow"><i class="fas fa-clock"></i></div>
+                        <div class="stat-info"><h3 id="stat-pending">0</h3><p>Pendentes</p></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon green"><i class="fas fa-check-circle"></i></div>
+                        <div class="stat-info"><h3 id="stat-completed">0</h3><p>Concluídas</p></div>
+                    </div>
+                </div>
+                <div class="dashboard-content">
+                    <div class="recent-tasks card">
+                        <h3>Tarefas Recentes</h3>
+                        <ul id="recent-list" class="task-list-mini"></ul>
+                    </div>
+                    <div class="productivity-card card">
+                        <h3>Progresso</h3>
+                        <div class="progress-container">
+                            <div class="progress-bar" id="main-progress-bar" style="width: 0%"></div>
+                        </div>
+                        <p id="progress-text">0% concluído</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- View: Tarefas -->
+            <section id="view-tasks" class="view hidden">
+                <header class="view-header">
+                    <h1>Minhas Tarefas</h1>
+                    <button class="btn-primary" id="open-modal-btn"><i class="fas fa-plus"></i> Nova Tarefa</button>
+                </header>
+                <div class="filters">
+                    <button class="filter-btn active" data-filter="all">Todas</button>
+                    <button class="filter-btn" data-filter="pending">Pendentes</button>
+                    <button class="filter-btn" data-filter="completed">Concluídas</button>
+                </div>
+                <div class="tasks-container">
+                    <ul id="full-task-list" class="task-list-full"></ul>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal -->
+    <div id="task-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Nova Tarefa</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="task-form">
+                <div class="input-group">
+                    <label>Título</label>
+                    <input type="text" id="task-title" required placeholder="O que fazer?">
+                </div>
+                <div class="input-group">
+                    <label>Prioridade</label>
+                    <select id="task-priority">
+                        <option value="low">Baixa</option>
+                        <option value="medium" selected>Média</option>
+                        <option value="high">Alta</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary">Salvar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
