@@ -42,23 +42,26 @@ organização, produtividade e manipulação do DOM.
 1.  Clone o repositório:
 
 ```{=html}
-<!-- -->
-```
+
     git clone https://github.com/lucasdevelop2008/Gerenciador-de-tarefas.git
+
+```
 
 2.  Acesse a pasta:
 
 ```{=html}
-<!-- -->
-```
+
     cd Gerenciador-de-tarefas
+
+```
 
 3.  Abra:
 
 ```{=html}
-<!-- -->
-```
+
     index.html
+
+```
 
 Ou utilize Live Server.
 
@@ -66,9 +69,9 @@ Ou utilize Live Server.
 
 ## 🖥️ Como Usar
 
-1.  Abra o site\
-2.  Adicione tarefas\
-3.  Marque como concluídas\
+1.  Abra o site
+2.  Adicione tarefas
+3.  Marque como concluídas
 4.  Use filtros se disponíveis
 
 ------------------------------------------------------------------------
